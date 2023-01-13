@@ -243,7 +243,7 @@ namespace DSA_Project
             {
                 if (data[i, j] != data[i - 1, j])
                 {
-                    MessageBox.Show($"Customer Names: \n" + customerNames[i] + "\n\nInterest: " + customerInterests[i]);
+                    MessageBox.Show($"Customer Name: " + customerNames[i] + "\n\nInterest: " + customerInterests[i]);
                     maxInterest += customerInterests[i];            
                 }
                 i--;
