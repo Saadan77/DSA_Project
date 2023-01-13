@@ -1,4 +1,5 @@
 using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Utilities;
 using System;
 using System.Collections;
 using System.Data;
@@ -194,6 +195,7 @@ namespace DSA_Project
                 const int maxLoan = 100000;
 
                 int result = GetMaxInterest(n, maxLoan, array_loan, array_interest, data);
+                OutputNames(n, maxLoan, array_name, array_interest, data);
 
                 con.Close();
             }
@@ -229,6 +231,25 @@ namespace DSA_Project
             return data[n, maxLoan];
         }
 
+        private static void OutputNames(int n, int maxLoan, string[] customerNames, int[] customerInterests, int[,] data)
+        {
+            int i = n;
+            int j = maxLoan;
+            int maxInterest = 0;
+            List<int> no_interests = new List<int>();
+            List<string> no_names = new List<string>();
+
+            while (i > 0)
+            {
+                if (data[i, j] != data[i - 1, j])
+                {
+                    MessageBox.Show($"Customer Names: \n" + customerNames[i] + "\n\nInterest: " + customerInterests[i]);
+                    maxInterest += customerInterests[i];            
+                }
+                i--;
+            }
+        }
+
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             int loan = Convert.ToInt32(customerLoan.Text);
@@ -253,10 +274,6 @@ namespace DSA_Project
                 interestText.Text = Convert.ToString(interest);
             }
 
-            /*else if (customerLoan.Text == "")
-            {
-                MessageBox.Show("Enter loan 1st");
-            }*/
         }
 
         private void BtnDelete_Click(object sender, EventArgs e)
@@ -289,11 +306,6 @@ namespace DSA_Project
 
             MessageBox.Show("Successfully Deleted");
             con.Close();
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void BtnUpdate_Click(object sender, EventArgs e)
