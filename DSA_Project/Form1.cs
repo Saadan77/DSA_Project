@@ -118,7 +118,7 @@ namespace DSA_Project
                 con.ConnectionString = connstring;
                 con.Open();
 
-                string query = "INSERT INTO customer_info (customer_id, customer_name, customer_loan, interest, tenure) VALUES ('" +customerID.Text+ "', '" + customerName.Text+ "','" + customerLoan.Text+ "','" + interestText.Text+ "' ,'" + tenureComboBox.Text+ "');";
+                string query = "INSERT INTO customer_info (customer_id, customer_name, customer_loan, interest, tenure) VALUES ('" + customerID.Text + "', '" + customerName.Text + "','" + customerLoan.Text + "','" + interestText.Text + "' ,'" + tenureComboBox.Text + "');";
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 cmd.ExecuteNonQuery();
 
@@ -142,9 +142,17 @@ namespace DSA_Project
                 MessageBox.Show("Successfully Submitted");
                 con.Close();
             }
-            catch (MySqlException ex)
+            catch (Exception)
             {
-                MessageBox.Show(ex.ToString());
+                if (String.IsNullOrEmpty(customerName.Text))
+                {
+                    MessageBox.Show("Please enter your name");
+                }
+
+                else
+                {
+                    MessageBox.Show("Feilds are missing");
+                }
             }
         }
 
