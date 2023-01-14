@@ -118,7 +118,7 @@ namespace DSA_Project
                 con.ConnectionString = connstring;
                 con.Open();
 
-                string query = "INSERT INTO student_info (student_id, student_name, student_schoarship, gpa, salary) VALUES ('" +studentID.Text+ "', '" + studentName.Text+ "','" + studentscholarship.Text+ "','" + gpaText.Text+ "' ,'" + salaryText.Text+ "');";
+                string query = "INSERT INTO student_info (student_id, student_name, student_scholarship, gpa, father_salary) VALUES ('" +studentID.Text+ "', '" + studentName.Text+ "','" + studentscholarship.Text+ "','" + gpaText.Text+ "' ,'" + salaryText.Text+ "');";
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 cmd.ExecuteNonQuery();
 
@@ -355,19 +355,19 @@ namespace DSA_Project
             int salary = Convert.ToInt32(salaryText.Text);
             int scholarship;
 
-            if (salary >= 20000 && salary <= 30000 && gpa >= 3.8)
+            if (salary >= 20000 && salary <= 30000)
             {
                 scholarship = 200000;
                 studentscholarship.Text = Convert.ToString(scholarship);
             }
 
-            else if (salary >= 30000 && salary <= 40000 && gpa >= 3.7)
+            else if (salary >= 30000 && salary <= 40000)
             {
                 scholarship = 150000;
                 studentscholarship.Text = Convert.ToString(scholarship);
             }
 
-            else if (salary >= 40000 && salary <= 50000 && gpa >= 3.6)
+            else if (salary >= 40000 && salary <= 50000)
             {
                 scholarship = 100000;
                 studentscholarship.Text = Convert.ToString(scholarship);
