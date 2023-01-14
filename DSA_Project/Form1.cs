@@ -195,7 +195,7 @@ namespace DSA_Project
                 const int maxLoan = 100000;
 
                 int result = GetMaxInterest(n, maxLoan, array_loan, array_interest, data);
-                OutputNames(n, maxLoan, array_name, array_interest, data);
+                OutputNames(n, maxLoan, array_name, array_loan, array_interest, data);
 
                 con.Close();
             }
@@ -231,20 +231,19 @@ namespace DSA_Project
             return data[n, maxLoan];
         }
 
-        private static void OutputNames(int n, int maxLoan, string[] customerNames, int[] customerInterests, int[,] data)
+        private static void OutputNames(int n, int maxLoan, string[] customerNames, int[] customerLoans, int[] customerInterests, int[,] data)
         {
             int i = n;
             int j = maxLoan;
             int maxInterest = 0;
-            List<int> no_interests = new List<int>();
-            List<string> no_names = new List<string>();
 
-            while (i > 0)
+            while (i > 0 && j > 0)
             {
                 if (data[i, j] != data[i - 1, j])
                 {
                     MessageBox.Show($"Customer Name: " + customerNames[i] + "\n\nInterest: " + customerInterests[i]);
-                    maxInterest += customerInterests[i];            
+                    maxInterest += customerInterests[i];
+                    j = j - customerLoans[i];
                 }
                 i--;
             }
