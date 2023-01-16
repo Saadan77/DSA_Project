@@ -10,7 +10,7 @@ using System.Windows.Forms;
 namespace DSA_Project
 {
     public partial class Form1 : Form
-    {
+    { 
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
 
         private static extern IntPtr CreateRoundRectRgn
@@ -55,14 +55,6 @@ namespace DSA_Project
             con.Close();
         }
 
-        private void BtnDashboard_Click(object sender, EventArgs e)
-        {
-            pnlNav.Height = BtnDashboard.Height;
-            pnlNav.Top = BtnDashboard.Top;
-            pnlNav.Left = BtnDashboard.Left;
-            BtnDashboard.BackColor = Color.FromArgb(46, 51, 73);
-        }
-
         private void BtnBankLoan_Click(object sender, EventArgs e)
         {
             pnlNav.Height = btnBankLoan.Height;
@@ -75,6 +67,10 @@ namespace DSA_Project
             pnlNav.Height = btnLaptopScheme.Height;
             pnlNav.Top = btnLaptopScheme.Top;
             btnLaptopScheme.BackColor = Color.FromArgb(46, 51, 73);
+
+            this.Close();
+            LaptopForm f = new LaptopForm();
+            f.Show();
         }
 
         private void BtnScholarship_Click(object sender, EventArgs e)
@@ -82,11 +78,10 @@ namespace DSA_Project
             pnlNav.Height = btnScholarship.Height;
             pnlNav.Top = btnScholarship.Top;
             btnScholarship.BackColor = Color.FromArgb(46, 51, 73);
-        }
 
-        private void BtnDashboard_Leave(object sender, EventArgs e)
-        {
-            BtnDashboard.BackColor = Color.FromArgb(24, 30, 54);
+            this.Close();
+            Form2 f = new Form2();
+            f.Show();
         }
 
         private void btnBankLoan_Leave(object sender, EventArgs e)
@@ -142,17 +137,10 @@ namespace DSA_Project
                 MessageBox.Show("Successfully Submitted");
                 con.Close();
             }
-            catch (Exception)
-            {
-                if (String.IsNullOrEmpty(customerName.Text))
-                {
-                    MessageBox.Show("Please enter your name");
-                }
 
-                else
-                {
-                    MessageBox.Show("Feilds are missing");
-                }
+            catch
+            {
+                MessageBox.Show("Incorrect Format");
             }
         }
 
@@ -234,7 +222,6 @@ namespace DSA_Project
                     }
                 }
             }
-
             MessageBox.Show("\nMax Interest: " + Convert.ToString(data[n, maxLoan]));
             return data[n, maxLoan];
         }

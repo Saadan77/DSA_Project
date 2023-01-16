@@ -55,19 +55,15 @@ namespace DSA_Project
             con.Close();
         }
 
-        private void BtnDashboard_Click(object sender, EventArgs e)
-        {
-            pnlNav.Height = BtnDashboard.Height;
-            pnlNav.Top = BtnDashboard.Top;
-            pnlNav.Left = BtnDashboard.Left;
-            BtnDashboard.BackColor = Color.FromArgb(46, 51, 73);
-        }
-
         private void BtnBankLoan_Click(object sender, EventArgs e)
         {
             pnlNav.Height = btnBankLoan.Height;
             pnlNav.Top = btnBankLoan.Top;
             btnBankLoan.BackColor = Color.FromArgb(46, 51, 73);
+
+            this.Close();
+            Form1 f = new Form1();
+            f.Show();
         }
 
         private void BtnLaptopScheme_Click(object sender, EventArgs e)
@@ -75,6 +71,10 @@ namespace DSA_Project
             pnlNav.Height = btnLaptopScheme.Height;
             pnlNav.Top = btnLaptopScheme.Top;
             btnLaptopScheme.BackColor = Color.FromArgb(46, 51, 73);
+
+            this.Close();
+            LaptopForm f = new LaptopForm();
+            f.Show();
         }
 
         private void BtnScholarship_Click(object sender, EventArgs e)
@@ -82,11 +82,6 @@ namespace DSA_Project
             pnlNav.Height = btnScholarship.Height;
             pnlNav.Top = btnScholarship.Top;
             btnScholarship.BackColor = Color.FromArgb(46, 51, 73);
-        }
-
-        private void BtnDashboard_Leave(object sender, EventArgs e)
-        {
-            BtnDashboard.BackColor = Color.FromArgb(24, 30, 54);
         }
 
         private void btnBankLoan_Leave(object sender, EventArgs e)
@@ -118,7 +113,7 @@ namespace DSA_Project
                 con.ConnectionString = connstring;
                 con.Open();
 
-                string query = "INSERT INTO student_info (student_id, student_name, student_scholarship, gpa, father_salary) VALUES ('" +studentID.Text+ "', '" + studentName.Text+ "','" + studentscholarship.Text+ "','" + gpaText.Text+ "' ,'" + salaryText.Text+ "');";
+                string query = "INSERT INTO student_info (student_id, student_name, student_scholarship, gpa, father_salary) VALUES ('" + studentID.Text + "', '" + studentName.Text + "','" + studentscholarship.Text + "','" + gpaText.Text + "' ,'" + salaryText.Text + "');";
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 cmd.ExecuteNonQuery();
 
@@ -142,9 +137,9 @@ namespace DSA_Project
                 MessageBox.Show("Successfully Submitted");
                 con.Close();
             }
-            catch (MySqlException ex)
+            catch 
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show("Invalid Format");
             }
         }
 
@@ -152,7 +147,7 @@ namespace DSA_Project
         {
             try
             {
-                string connstring = "server = localhost; uid = root; pwd = 1234; database = student";
+                string connstring = "server = localhost; uid = root; pwd = 1234; database = customer";
                 MySqlConnection con = new MySqlConnection
                 {
                     ConnectionString = connstring
@@ -167,7 +162,7 @@ namespace DSA_Project
                 List<int> studentscholarship = new List<int>();
                 List<int> studentgpa = new List<int>();
                 List<string> studentName = new List<string>();
-                List<int> studentid= new List<int>();
+                List<int> studentid = new List<int>();
 
                 while (Reader.Read())
                 {
@@ -184,15 +179,15 @@ namespace DSA_Project
                     studentid.Add(id);
                 }
 
-                var array_scholarship= studentscholarship.ToArray();
-                var array_gpa= studentgpa.ToArray();
+                var array_scholarship = studentscholarship.ToArray();
+                var array_gpa = studentgpa.ToArray();
                 var array_name = studentName.ToArray();
                 var array_id = studentid.ToArray();
                 int n = array_id.Length - 1;
 
                 int[,] data = new int[25, 500001];
 
-                const int maxscholarship= 500000;
+                const int maxscholarship = 500000;
 
                 int result = Getmaxscholarship(n, maxscholarship, array_scholarship, array_gpa, data);
                 OutputNames(n, maxscholarship, array_name, array_scholarship, array_gpa, data);
@@ -209,9 +204,9 @@ namespace DSA_Project
         {
             for (int studentNum = 0; studentNum <= n; studentNum++)
             {
-                for (int currentscholarship = 0; currentscholarship<= maxscholarship; currentscholarship++)
+                for (int currentscholarship = 0; currentscholarship <= maxscholarship; currentscholarship++)
                 {
-                    if (studentNum == 0 || currentscholarship== 0)
+                    if (studentNum == 0 || currentscholarship == 0)
                     {
                         data[studentNum, currentscholarship] = 0;
                     }
@@ -226,30 +221,28 @@ namespace DSA_Project
                     }
                 }
             }
-
-            MessageBox.Show("\nMax Scholarship: " + Convert.ToString(data[n, maxscholarship]));
+            MessageBox.Show("Max Scholarship: " + data[n, maxscholarship]);
             return data[n, maxscholarship];
         }
 
-     private static void OutputNames(int n, int maxscholarship, string[] studentNames, int[] studentscholarships, int[] studentgpa, int[,] data)
+        private static void OutputNames(int n, int maxscholarship, string[] studentNames, int[] studentscholarships, int[] studentgpa, int[,] data)
         {
             int i = n;
             int j = maxscholarship;
-          
+
 
             while (i > 0 && j > 0)
             {
                 if (data[i, j] != data[i - 1, j])
                 {
                     MessageBox.Show($"Student Name: " + studentNames[i] + "\n\n Scholarship: " + studentscholarships[i]);
-                    maxscholarship += studentscholarships[i];
                     j = j - studentgpa[i];
                 }
                 i--;
             }
         }
 
-       
+
         private void BtnDelete_Click(object sender, EventArgs e)
         {
             string connstring = "server = localhost; uid = root; pwd = 1234; database = customer";
@@ -257,7 +250,7 @@ namespace DSA_Project
             con.ConnectionString = connstring;
             con.Open();
 
-            string query = "delete from student_info where customer_id = ( " + studentID.Text + " );";
+            string query = "delete from student_info where student_id = ( " + studentID.Text + " );";
             MySqlCommand cmd = new MySqlCommand(query, con);
             cmd.ExecuteNonQuery();
 
@@ -316,62 +309,81 @@ namespace DSA_Project
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            string connstring = "server = localhost; uid = root; pwd = 1234; database = customer";
-            MySqlConnection con = new MySqlConnection();
-            con.ConnectionString = connstring;
-            con.Open();
+            try
+            {
+                string connstring = "server = localhost; uid = root; pwd = 1234; database = customer";
+                MySqlConnection con = new MySqlConnection();
+                con.ConnectionString = connstring;
+                con.Open();
 
-            string query = "select * from student_info";
-            MySqlCommand cmd_1 = new MySqlCommand(query, con);
-            MySqlDataReader reader = cmd_1.ExecuteReader();
+                string query = "select * from student_info";
+                MySqlCommand cmd_1 = new MySqlCommand(query, con);
+                MySqlDataReader reader = cmd_1.ExecuteReader();
 
-            studentID.Text = "";
-            studentscholarship.Text = "";
-            studentName.Text = "";
-            gpaText.Text = "";
-            salaryText.Text = "";
+                studentID.Text = "";
+                studentscholarship.Text = "";
+                studentName.Text = "";
+                gpaText.Text = "";
+                salaryText.Text = "";
 
-            con.Close();
+                con.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Form Successfully Closed");
+            }
         }
 
         private void dataGridView1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            int n = dataGridView1.SelectedRows[0].Index;
-            studentID.Text = dataGridView1.Rows[n].Cells[0].Value.ToString();
-            studentName.Text = dataGridView1.Rows[n].Cells[1].Value.ToString();
-            studentscholarship.Text = dataGridView1.Rows[n].Cells[2].Value.ToString();  
-            gpaText.Text = dataGridView1.Rows[n].Cells[3].Value.ToString();
-            salaryText.Text = dataGridView1.Rows[n].Cells[4].Value.ToString();
+            try
+            {
+                int n = dataGridView1.SelectedRows[0].Index;
+                studentID.Text = dataGridView1.Rows[n].Cells[0].Value.ToString();
+                studentName.Text = dataGridView1.Rows[n].Cells[1].Value.ToString();
+                studentscholarship.Text = dataGridView1.Rows[n].Cells[2].Value.ToString();
+                gpaText.Text = dataGridView1.Rows[n].Cells[3].Value.ToString();
+                salaryText.Text = dataGridView1.Rows[n].Cells[4].Value.ToString();
+            }
+            catch
+            {
+                MessageBox.Show("Successfully Placed");
+            }
         }
 
         private void studentscholarship_TextChanged(object sender, EventArgs e)
         {
-            
         }
 
         private void salaryText_TextChanged(object sender, EventArgs e)
         {
             double gpa = Convert.ToDouble(gpaText.Text);
             int salary = Convert.ToInt32(salaryText.Text);
-            int scholarship;
+            double scholarship;
 
-            if (salary >= 20000 && salary <= 30000)
+            if (gpa == 3.6 && salary >= 20000 && salary <= 30000)
             {
-                scholarship = 200000;
+                scholarship = 20000;
                 studentscholarship.Text = Convert.ToString(scholarship);
             }
 
-            else if (salary >= 30000 && salary <= 40000)
+            else if (gpa == 3.7 && salary >= 30000 && salary <= 40000)
             {
-                scholarship = 150000;
+                scholarship = 30000;
                 studentscholarship.Text = Convert.ToString(scholarship);
             }
 
-            else if (salary >= 40000 && salary <= 50000)
+            else if (gpa == 3.8 && salary >= 40000 && salary <= 50000)
             {
-                scholarship = 100000;
+                scholarship = 247500;
+                studentscholarship.Text = Convert.ToString(scholarship);
+            }
+
+            else if (gpa == 3.9 || gpa == 4 && salary >= 50000 && salary <= 60000)
+            {
+                scholarship = 247500;
                 studentscholarship.Text = Convert.ToString(scholarship);
             }
         }
     }
-}
+}   

@@ -34,7 +34,6 @@
             this.btnLaptopScheme = new System.Windows.Forms.Button();
             this.btnBankLoan = new System.Windows.Forms.Button();
             this.pnlNav = new System.Windows.Forms.Panel();
-            this.BtnDashboard = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -73,7 +72,6 @@
             this.panel1.Controls.Add(this.btnLaptopScheme);
             this.panel1.Controls.Add(this.btnBankLoan);
             this.panel1.Controls.Add(this.pnlNav);
-            this.panel1.Controls.Add(this.BtnDashboard);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -130,7 +128,7 @@
             this.btnBankLoan.Name = "btnBankLoan";
             this.btnBankLoan.Size = new System.Drawing.Size(257, 83);
             this.btnBankLoan.TabIndex = 3;
-            this.btnBankLoan.Text = "Bank Loan";
+            this.btnBankLoan.Text = "Loan";
             this.btnBankLoan.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnBankLoan.UseVisualStyleBackColor = true;
             this.btnBankLoan.Click += new System.EventHandler(this.BtnBankLoan_Click);
@@ -144,25 +142,6 @@
             this.pnlNav.Name = "pnlNav";
             this.pnlNav.Size = new System.Drawing.Size(4, 167);
             this.pnlNav.TabIndex = 2;
-            // 
-            // BtnDashboard
-            // 
-            this.BtnDashboard.Dock = System.Windows.Forms.DockStyle.Top;
-            this.BtnDashboard.FlatAppearance.BorderSize = 0;
-            this.BtnDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnDashboard.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.BtnDashboard.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
-            this.BtnDashboard.Image = ((System.Drawing.Image)(resources.GetObject("BtnDashboard.Image")));
-            this.BtnDashboard.Location = new System.Drawing.Point(0, 255);
-            this.BtnDashboard.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.BtnDashboard.Name = "BtnDashboard";
-            this.BtnDashboard.Size = new System.Drawing.Size(266, 70);
-            this.BtnDashboard.TabIndex = 1;
-            this.BtnDashboard.Text = "Dashboard";
-            this.BtnDashboard.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.BtnDashboard.UseVisualStyleBackColor = true;
-            this.BtnDashboard.Click += new System.EventHandler(this.BtnDashboard_Click);
-            this.BtnDashboard.Leave += new System.EventHandler(this.BtnDashboard_Leave);
             // 
             // panel2
             // 
@@ -513,7 +492,6 @@
         private Panel panel1;
         private Panel panel2;
         private PictureBox pictureBox1;
-        private Button BtnDashboard;
         private Label label2;
         private Label label1;
         private Panel pnlNav;
